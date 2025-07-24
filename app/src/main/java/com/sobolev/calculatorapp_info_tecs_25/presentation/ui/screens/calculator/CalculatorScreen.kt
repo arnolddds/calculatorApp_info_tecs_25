@@ -127,7 +127,6 @@ fun CalculatorScreen(
 @Composable
 fun CalculatorKeyboard(onCommand: (CalculatorCommand) -> Unit) {
     val buttonLayout = listOf(
-        listOf("√", "π", "^", "!"),
         listOf("AC", "( )", "%", "÷"),
         listOf("7", "8", "9", "×"),
         listOf("4", "5", "6", "-"),
@@ -147,7 +146,6 @@ fun CalculatorKeyboard(onCommand: (CalculatorCommand) -> Unit) {
                     val bgColor = when (label) {
                         "AC" -> MaterialTheme.colorScheme.secondary
                         "+", "-", "×", "÷", "=", "( )", "%" -> MaterialTheme.colorScheme.tertiary
-                        "√", "π", "^", "!" -> MaterialTheme.colorScheme.background
                         else -> MaterialTheme.colorScheme.primary
                     }
 
