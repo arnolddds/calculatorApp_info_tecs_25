@@ -16,4 +16,5 @@ enum class Symbol(val value: String) {
     MULTIPLY("x"),
     DIVIDE("÷"),
     DOT(","),
+    PARENTHESIS("()")
 }
