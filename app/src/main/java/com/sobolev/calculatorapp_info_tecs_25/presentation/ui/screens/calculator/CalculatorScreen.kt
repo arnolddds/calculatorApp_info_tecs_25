@@ -16,19 +16,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.sobolev.calculatorapp_info_tecs_25.domain.model.CalculatorState
+import com.sobolev.calculatorapp_info_tecs_25.presentation.ui.screens.calculator.CalculatorState
 import com.sobolev.calculatorapp_info_tecs_25.presentation.ui.screens.calculator.CalculatorViewModel
 import kotlin.collections.forEach
 import com.sobolev.calculatorapp_info_tecs_25.R
-import com.sobolev.calculatorapp_info_tecs_25.domain.CalculatorCommand
+import com.sobolev.calculatorapp_info_tecs_25.presentation.ui.screens.calculator.CalculatorCommand
 import com.sobolev.calculatorapp_info_tecs_25.domain.model.Symbol
 
 
 @Composable
 fun CalculatorScreen(
     navController: NavController,
-    viewModel: CalculatorViewModel,
+    viewModel: CalculatorViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
     val state = viewModel.state.collectAsState()

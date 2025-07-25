@@ -4,16 +4,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sobolev.calculatorapp_info_tecs_25.NativeCalculator
 import com.sobolev.calculatorapp_info_tecs_25.data.repository.HistoryRepository
-import com.sobolev.calculatorapp_info_tecs_25.domain.CalculatorCommand
-import com.sobolev.calculatorapp_info_tecs_25.domain.model.CalculatorState
+import com.sobolev.calculatorapp_info_tecs_25.presentation.ui.screens.calculator.CalculatorCommand
+import com.sobolev.calculatorapp_info_tecs_25.presentation.ui.screens.calculator.CalculatorState
 import com.sobolev.calculatorapp_info_tecs_25.domain.model.Symbol
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CalculatorViewModel (
+
+@HiltViewModel
+class CalculatorViewModel @Inject constructor (
     private val historyRepository: HistoryRepository
 ) : ViewModel() {
 

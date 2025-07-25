@@ -1,4 +1,4 @@
-package com.sobolev.calculatorapp_info_tecs_25.domain.model
+package com.sobolev.calculatorapp_info_tecs_25.presentation.ui.screens.calculator
 
 sealed interface CalculatorState {
 

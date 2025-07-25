@@ -1,7 +1,6 @@
-package com.sobolev.calculatorapp_info_tecs_25.domain
+package com.sobolev.calculatorapp_info_tecs_25.presentation.ui.screens.calculator
 
 import com.sobolev.calculatorapp_info_tecs_25.domain.model.Symbol
-
 
 sealed interface CalculatorCommand {
 

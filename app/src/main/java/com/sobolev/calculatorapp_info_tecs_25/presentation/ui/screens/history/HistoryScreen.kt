@@ -25,13 +25,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.sobolev.calculatorapp_info_tecs_25.R
 import com.sobolev.calculatorapp_info_tecs_25.presentation.ui.screens.calculator.CalculatorViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HistoryScreen(
-    viewModel: CalculatorViewModel,
+    viewModel: CalculatorViewModel = hiltViewModel(),
     onBack: () -> Unit
 ) {
     val historyState = viewModel.history.collectAsState()
