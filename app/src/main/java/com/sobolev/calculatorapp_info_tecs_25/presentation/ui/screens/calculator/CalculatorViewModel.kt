@@ -4,8 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sobolev.calculatorapp_info_tecs_25.NativeCalculator
 import com.sobolev.calculatorapp_info_tecs_25.data.repository.HistoryRepository
-import com.sobolev.calculatorapp_info_tecs_25.presentation.ui.screens.calculator.CalculatorCommand
-import com.sobolev.calculatorapp_info_tecs_25.presentation.ui.screens.calculator.CalculatorState
 import com.sobolev.calculatorapp_info_tecs_25.domain.model.Symbol
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +19,8 @@ class CalculatorViewModel @Inject constructor (
     private val historyRepository: HistoryRepository
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<CalculatorState>(CalculatorState.Initial)
+    private val _state =
+        MutableStateFlow<CalculatorState>(CalculatorState.Initial)
     val state = _state.asStateFlow()
 
     val history = historyRepository.getHistory()
@@ -54,6 +53,8 @@ class CalculatorViewModel @Inject constructor (
                     getCorrectParenthesis()
                 }
 
+                if (!canAddSymbol(symbol)) return
+
                 expression += symbol
                 _state.value = CalculatorState.Input(
                     expression = expression,
@@ -62,6 +63,7 @@ class CalculatorViewModel @Inject constructor (
             }
         }
     }
+
 
     private fun getCorrectParenthesis(): String {
         val openCount = expression.count { it == '(' }
@@ -81,8 +83,7 @@ class CalculatorViewModel @Inject constructor (
             .replace('×', '*')
             .replace('÷', '/')
 
-        val match =
-            Regex("""(-?\d+(?:\.\d+)?)([+\-*/])(-?\d+(?:\.\d+)?)""").find(expr) ?: return null
+        val match = Regex("""(-?\d+(?:\.\d+)?)([+\-*/%])(-?\d+(?:\.\d+)?)""").find(expr) ?: return null
 
         val (lhs, op, rhs) = match.destructured
         val a = lhs.toDoubleOrNull() ?: return null
@@ -93,12 +94,24 @@ class CalculatorViewModel @Inject constructor (
             "-" -> NativeCalculator.subtract(a, b)
             "*" -> NativeCalculator.multiply(a, b)
             "/" -> NativeCalculator.divide(a, b)
-            "%" -> NativeCalculator.modulo(a,b)
+            "%" -> NativeCalculator.modulo(a, b)
             else -> return null
         }
 
         return result.takeIf { it.isFinite() }?.toString()
     }
+
+    private fun canAddSymbol(symbol: String): Boolean {
+        val operators = listOf("+", "-", "*", "/", "%")
+
+        if (symbol.matches(Regex("[0-9.,()]"))) return true
+
+        val currentOperators = expression.count { it.toString() in operators }
+
+        return !(symbol in operators && currentOperators >= 1)
+    }
+
+
 
 
     private fun saveToHistory(expr: String, result: String) {

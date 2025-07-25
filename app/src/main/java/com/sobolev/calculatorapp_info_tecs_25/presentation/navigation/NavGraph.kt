@@ -23,7 +23,7 @@ fun NavGraph() {
         ) {
             composable("calculator") {
                 CalculatorScreen(
-                    navController = navController
+                    onHistoryClick = {navController.navigate("history")}
                 )
             }
             composable("history") {
