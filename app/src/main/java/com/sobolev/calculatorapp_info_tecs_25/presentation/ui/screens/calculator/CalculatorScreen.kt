@@ -28,7 +28,7 @@ import com.sobolev.calculatorapp_info_tecs_25.domain.model.Symbol
 
 @Composable
 fun CalculatorScreen(
-    navController: NavController,
+    onHistoryClick: () -> Unit,
     viewModel: CalculatorViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
@@ -109,11 +109,11 @@ fun CalculatorScreen(
             }
 
             IconButton(
-                onClick = { navController.navigate("history") },
+                onClick = onHistoryClick,
                 modifier = Modifier
                     .align(Alignment.TopEnd)
-                    .padding(24.dp)
-                    .size(48.dp)
+                    .padding(36.dp)
+                    .size(56.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Menu,

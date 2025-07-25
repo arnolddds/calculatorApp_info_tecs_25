@@ -19,7 +19,8 @@ class CalculatorViewModel @Inject constructor (
     private val historyRepository: HistoryRepository
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<CalculatorState>(CalculatorState.Initial)
+    private val _state =
+        MutableStateFlow<CalculatorState>(CalculatorState.Initial)
     val state = _state.asStateFlow()
 
     val history = historyRepository.getHistory()
