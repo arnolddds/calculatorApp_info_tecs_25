@@ -1,4 +1,4 @@
-package com.sobolev.calculatorapp_info_tecs_25
+package com.sobolev.calculatorapp_info_tecs_25.presentation.ui
 
 import CalculatorScreen
 import android.os.Bundle
@@ -16,7 +16,7 @@ import androidx.room.Room
 import com.sobolev.calculatorapp_info_tecs_25.data.local.CalculatorDatabase
 import com.sobolev.calculatorapp_info_tecs_25.data.repository.HistoryRepository
 import com.sobolev.calculatorapp_info_tecs_25.presentation.ui.screens.calculator.CalculatorViewModel
-import com.sobolev.calculatorapp_info_tecs_25.presentation.ui.screens.calculator.HistoryScreen
+import com.sobolev.calculatorapp_info_tecs_25.presentation.ui.screens.history.HistoryScreen
 import com.sobolev.calculatorapp_info_tecs_25.presentation.ui.theme.CalculatorApp_info_tecs_25Theme
 
 class MainActivity : ComponentActivity() {
@@ -38,11 +38,11 @@ class MainActivity : ComponentActivity() {
             CalculatorApp_info_tecs_25Theme {
                 val navController = rememberNavController()
 
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(modifier = Modifier.Companion.fillMaxSize()) { innerPadding ->
                     NavHost(
                         navController = navController,
                         startDestination = "calculator",
-                        modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding())
+                        modifier = Modifier.Companion.padding(bottom = innerPadding.calculateBottomPadding())
                     ) {
                         composable("calculator") {
                             CalculatorScreen(

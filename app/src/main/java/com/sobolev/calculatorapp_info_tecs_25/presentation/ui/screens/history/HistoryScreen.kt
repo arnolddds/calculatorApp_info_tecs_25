@@ -1,4 +1,4 @@
-package com.sobolev.calculatorapp_info_tecs_25.presentation.ui.screens.calculator
+package com.sobolev.calculatorapp_info_tecs_25.presentation.ui.screens.history
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sobolev.calculatorapp_info_tecs_25.R
+import com.sobolev.calculatorapp_info_tecs_25.presentation.ui.screens.calculator.CalculatorViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

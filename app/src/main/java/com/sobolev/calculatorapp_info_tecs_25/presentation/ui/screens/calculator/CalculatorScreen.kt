@@ -203,6 +203,7 @@ fun labelToCommand(label: String): CalculatorCommand = when (label) {
     "-" -> CalculatorCommand.Input(Symbol.SUBTRACT)
     "×" -> CalculatorCommand.Input(Symbol.MULTIPLY)
     "÷" -> CalculatorCommand.Input(Symbol.DIVIDE)
+    "%" -> CalculatorCommand.Input(Symbol.PERCENT)
     "( )" -> CalculatorCommand.Input(Symbol.PARENTHESIS)
     "AC" -> CalculatorCommand.Clear
     "=" -> CalculatorCommand.Evaluate
