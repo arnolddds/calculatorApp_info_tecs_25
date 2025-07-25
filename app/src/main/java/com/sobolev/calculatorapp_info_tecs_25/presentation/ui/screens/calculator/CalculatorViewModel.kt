@@ -2,6 +2,7 @@ package com.sobolev.calculatorapp_info_tecs_25.presentation.ui.screens.calculato
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sobolev.calculatorapp_info_tecs_25.NativeCalculator
 import com.sobolev.calculatorapp_info_tecs_25.data.repository.HistoryRepository
 import com.sobolev.calculatorapp_info_tecs_25.domain.CalculatorCommand
 import com.sobolev.calculatorapp_info_tecs_25.domain.model.CalculatorState
@@ -11,15 +12,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.mariuszgromada.math.mxparser.Expression
-import kotlin.isFinite
-import kotlin.let
-import kotlin.takeIf
-import kotlin.text.count
-import kotlin.text.isDigit
-import kotlin.text.isEmpty
-import kotlin.text.last
-import kotlin.text.replace
 
 class CalculatorViewModel (
     private val historyRepository: HistoryRepository
@@ -79,14 +71,31 @@ class CalculatorViewModel (
     }
 
     private fun evaluate(): String? {
-        return expression
+        val expr = expression
             .replace('x', '*')
             .replace(',', '.')
-            .let { Expression(it) }
-            .calculate()
-            .takeIf { it.isFinite() }
-            ?.toString()
+            .replace('×', '*')
+            .replace('÷', '/')
+
+        val match =
+            Regex("""(-?\d+(?:\.\d+)?)([+\-*/])(-?\d+(?:\.\d+)?)""").find(expr) ?: return null
+
+        val (lhs, op, rhs) = match.destructured
+        val a = lhs.toDoubleOrNull() ?: return null
+        val b = rhs.toDoubleOrNull() ?: return null
+
+        val result = when (op) {
+            "+" -> NativeCalculator.add(a, b)
+            "-" -> NativeCalculator.subtract(a, b)
+            "*" -> NativeCalculator.multiply(a, b)
+            "/" -> NativeCalculator.divide(a, b)
+            "%" -> NativeCalculator.modulo(a,b)
+            else -> return null
+        }
+
+        return result.takeIf { it.isFinite() }?.toString()
     }
+
 
     private fun saveToHistory(expr: String, result: String) {
         viewModelScope.launch {
