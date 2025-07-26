@@ -11,9 +11,10 @@
 
 ##  Внешность
 
-Главный экран | Экран истории вычислений | Обработка ошибок 
-:--:|:--: |:--: 
-_скриншот_ | _скриншот_ | _скриншот_
+Главный экран | Экран истории вычислений | Обработка ошибок  
+:--:|:--:|:--:  
+![main](screenshots/main_dark_screen.png) | ![history](screenshots/history_dark_screen.png) | ![error](screenshots/error_dark_screen.png)
+
 
 ---
 
