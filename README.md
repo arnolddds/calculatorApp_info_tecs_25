@@ -11,11 +11,9 @@
 
 ##  Внешность
 
-<div align="center">
-  <img src="screenshots/main_dark_screen.png" width="30%" alt="Главный экран">
-  <img src="screenshots/history_dark_screen.png" width="30%" alt="Экран истории вычислений">
-  <img src="screenshots/error_dark_screen.png" width="30%" alt="Обработка ошибок">
-</div>
+Главный экран | Экран истории вычислений | Обработка ошибок  
+:--:|:--:|:--:  
+![main](screenshots/main_dark_screen.png) | ![history](screenshots/history_screen.png) | ![error](screenshots/error_screen.png)
 
 ---
 
