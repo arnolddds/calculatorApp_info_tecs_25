@@ -10,10 +10,17 @@
 ---
 
 ##  Внешность
+### Темная тема
 
 Главный экран | Экран истории вычислений | Обработка ошибок  
 :--:|:--:|:--:  
-<img src="screenshots/main_dark_screen.png" width="50%"> | <img src="screenshots/history_dark_screen.png" width="50%"> | <img src="screenshots/error_dark_screen.png" width="50%">
+<img src="screenshots/main_dark_screen.png" width="70%"> | <img src="screenshots/history_dark_screen.png" width="70%"> | <img src="screenshots/error_dark_screen.png" width="70%">
+
+### Светлая тема
+
+Главный экран | Экран истории вычислений | Обработка ошибок  
+:--:|:--:|:--:  
+<img src="screenshots/light_main_screen.png" width="70%"> | <img src="screenshots/history_light_screen.png" width="70%"> | <img src="screenshots/error_light_screen.png" width="70%">
 
 ---
 
