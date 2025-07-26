@@ -13,7 +13,7 @@
 
 Главный экран | Экран истории вычислений | Обработка ошибок  
 :--:|:--:|:--:  
-![main](screenshots/main_dark_screen.png) | ![history](screenshots/history_screen.png) | ![error](screenshots/error_screen.png)
+<img src="screenshots/main_dark_screen.png" width="50%"> | <img src="screenshots/history_dark_screen.png" width="50%"> | <img src="screenshots/error_dark_screen.png" width="50%">
 
 ---
 
