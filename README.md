@@ -67,7 +67,7 @@ _скриншот_ | _скриншот_ | _скриншот_
 
 1. Клонировать репозиторий:
 ```bash
-git clone https://github.com/arnolddds/native-calculator.git
+git clone https://github.com/arnolddds/calculatorApp_info_tecs_25.git
 ```
 ##  Контакты
 Telegram @arnoldsss
