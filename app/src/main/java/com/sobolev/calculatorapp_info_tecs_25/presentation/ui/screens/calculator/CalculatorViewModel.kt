@@ -17,6 +17,11 @@ class CalculatorViewModel @Inject constructor(): ViewModel() {
 
 
     fun calculate(num1: String, num2: String, operation: String) {
+        if (num1.isBlank() || num2.isBlank()) {
+            _state.value = CalculatorState.Error("Некорректный ввод: оба поля должны быть заполнены")
+            return
+        }
+
         try {
             val a = num1.toDouble()
             val b = num2.toDouble()
@@ -26,14 +31,15 @@ class CalculatorViewModel @Inject constructor(): ViewModel() {
                 "-" -> NativeCalculator.subtract(a, b)
                 "*" -> NativeCalculator.multiply(a, b)
                 "/" -> NativeCalculator.divide(a, b)
-                else -> throw IllegalArgumentException("Unknown operation")
+                else -> throw IllegalArgumentException("Неизвестная операция")
             }
 
             _state.value = CalculatorState.Success(result.toString())
         } catch (e: Exception) {
-            _state.value = CalculatorState.Error(e.message ?: "Ошибка ввода")
+            _state.value = CalculatorState.Error("Некорректный ввод: ${e.message}")
         }
     }
+
 }
 
 
