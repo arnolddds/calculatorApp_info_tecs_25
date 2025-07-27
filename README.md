@@ -22,7 +22,7 @@
 :--:|:--:|:--:  
 <img src="screenshots/light_main_screen.png" width="70%"> | <img src="screenshots/history_light_screen.png" width="70%"> | <img src="screenshots/error_light_screen.png" width="70%">
 
-### Упрощенная версия(по тз) - ветка simple_screen
+### Упрощенная версия - ветка simple_screen
 
 Главный экран| Обработка ошибок  
 :--:|:--:  
