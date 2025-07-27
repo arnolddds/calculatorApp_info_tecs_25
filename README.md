@@ -22,6 +22,12 @@
 :--:|:--:|:--:  
 <img src="screenshots/light_main_screen.png" width="70%"> | <img src="screenshots/history_light_screen.png" width="70%"> | <img src="screenshots/error_light_screen.png" width="70%">
 
+### Упрощенная версия(по тз) - ветка simple_screen
+
+Главный экран| Обработка ошибок  
+:--:|:--:  
+<img src="screenshots/simple_main_screen.png" width="70%"> | <img src="screenshots/error_simple_main_screen.png" width="70%">
+
 ---
 
 ## ✅ Требования
