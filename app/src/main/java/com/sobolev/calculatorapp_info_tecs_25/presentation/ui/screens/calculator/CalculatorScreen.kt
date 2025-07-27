@@ -1,212 +1,83 @@
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.sobolev.calculatorapp_info_tecs_25.presentation.ui.screens.calculator.CalculatorState
 import com.sobolev.calculatorapp_info_tecs_25.presentation.ui.screens.calculator.CalculatorViewModel
-import kotlin.collections.forEach
-import com.sobolev.calculatorapp_info_tecs_25.R
-import com.sobolev.calculatorapp_info_tecs_25.presentation.ui.screens.calculator.CalculatorCommand
-import com.sobolev.calculatorapp_info_tecs_25.domain.model.Symbol
 
 
 @Composable
 fun CalculatorScreen(
-    onHistoryClick: () -> Unit,
-    viewModel: CalculatorViewModel = hiltViewModel(),
-    modifier: Modifier = Modifier
+    viewModel: CalculatorViewModel = hiltViewModel()
 ) {
-    val state = viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsState()
 
-    Scaffold(
-        modifier = modifier.fillMaxSize()
-    ) { innerPadding ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(bottom = innerPadding.calculateBottomPadding())
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                        .clip(RoundedCornerShape(bottomStart = 40.dp, bottomEnd = 40.dp))
-                        .background(MaterialTheme.colorScheme.primaryContainer)
-                        .padding(horizontal = 40.dp, vertical = 16.dp),
-                    verticalArrangement = Arrangement.Bottom,
-                    horizontalAlignment = Alignment.End
-                ) {
-                    when (val currentState = state.value) {
-                        is CalculatorState.Error -> {
-                            Text(
-                                text = currentState.expression,
-                                fontSize = 36.sp,
-                                fontWeight = FontWeight.SemiBold,
-                                color = MaterialTheme.colorScheme.error
-                            )
-                            Text(
-                                text = "",
-                                fontSize = 17.sp,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer
-                            )
-                        }
-                        is CalculatorState.Input -> {
-                            Text(
-                                text = currentState.expression,
-                                fontSize = 36.sp,
-                                fontWeight = FontWeight.SemiBold,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer
-                            )
-                            Text(
-                                text = currentState.result,
-                                fontSize = 17.sp,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer
-                            )
-                        }
-                        is CalculatorState.Success -> {
-                            Text(
-                                text = currentState.result,
-                                fontSize = 36.sp,
-                                fontWeight = FontWeight.SemiBold,
-                                color = MaterialTheme.colorScheme.onPrimaryContainer
-                            )
-                            Text(
-                                text = "",
-                                fontSize = 17.sp,
-                                color = MaterialTheme.colorScheme.onSecondaryContainer
-                            )
-                        }
-                        CalculatorState.Initial -> {}
-                    }
-                }
+    var input1 by remember { mutableStateOf("") }
+    var input2 by remember { mutableStateOf("") }
 
-
-                CalculatorKeyboard { command ->
-                    viewModel.processCommand(command)
-                }
-            }
-
-            IconButton(
-                onClick = onHistoryClick,
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .padding(36.dp)
-                    .size(56.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Menu,
-                    contentDescription = stringResource(R.string.history)
-                )
-            }
-        }
-    }
-}
-
-
-@Composable
-fun CalculatorKeyboard(onCommand: (CalculatorCommand) -> Unit) {
-    val buttonLayout = listOf(
-        listOf("AC", "( )", "%", "÷"),
-        listOf("7", "8", "9", "×"),
-        listOf("4", "5", "6", "-"),
-        listOf("1", "2", "3", "+"),
-        listOf("0", ".", "=")
-    )
-
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        buttonLayout.forEach { row ->
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                row.forEach { label ->
-                    val weight = if (label == "0") 2f else 1f
-                    val aspect = if (label == "0") 2f else 1f
-                    val bgColor = when (label) {
-                        "AC" -> MaterialTheme.colorScheme.secondary
-                        "+", "-", "×", "÷", "=", "( )", "%" -> MaterialTheme.colorScheme.tertiary
-                        else -> MaterialTheme.colorScheme.primary
-                    }
-
-                    CalculatorButton(
-                        symbol = label,
-                        backgroundColor = bgColor,
-                        modifier = Modifier
-                            .weight(weight)
-                            .aspectRatio(aspect)
-                    ) {
-                        onCommand(labelToCommand(label))
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun CalculatorButton(
-    symbol: String,
-    backgroundColor: Color,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit
-) {
-    Box(
-        modifier = modifier
-            .clip(CircleShape)
-            .background(backgroundColor)
-            .clickable(onClick = onClick),
-        contentAlignment = Alignment.Center
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 16.dp, vertical = 128.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        OutlinedTextField(
+            value = input1,
+            onValueChange = { input1 = it },
+            label = { Text("Число 1") },
+            singleLine = true
+        )
+
+        OutlinedTextField(
+            value = input2,
+            onValueChange = { input2 = it },
+            label = { Text("Число 2") },
+            singleLine = true
+        )
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Button(onClick = { viewModel.calculate(input1, input2, "+") }) {
+                Text("+")
+            }
+            Button(onClick = { viewModel.calculate(input1, input2, "-") }) {
+                Text("-")
+            }
+            Button(onClick = { viewModel.calculate(input1, input2, "*") }) {
+                Text("×")
+            }
+            Button(onClick = { viewModel.calculate(input1, input2, "/") }) {
+                Text("÷")
+            }
+        }
+
         Text(
-            text = symbol,
-            fontSize = 40.sp,
-            textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onBackground
+            text = when (state) {
+                is CalculatorState.Success -> "Результат: ${(state as CalculatorState.Success).result}"
+                is CalculatorState.Error -> "Ошибка: ${(state as CalculatorState.Error).expression}"
+                else -> ""
+            },
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold
         )
     }
 }
 
-fun labelToCommand(label: String): CalculatorCommand = when (label) {
-    "0" -> CalculatorCommand.Input(Symbol.DIGIT_0)
-    "1" -> CalculatorCommand.Input(Symbol.DIGIT_1)
-    "2" -> CalculatorCommand.Input(Symbol.DIGIT_2)
-    "3" -> CalculatorCommand.Input(Symbol.DIGIT_3)
-    "4" -> CalculatorCommand.Input(Symbol.DIGIT_4)
-    "5" -> CalculatorCommand.Input(Symbol.DIGIT_5)
-    "6" -> CalculatorCommand.Input(Symbol.DIGIT_6)
-    "7" -> CalculatorCommand.Input(Symbol.DIGIT_7)
-    "8" -> CalculatorCommand.Input(Symbol.DIGIT_8)
-    "9" -> CalculatorCommand.Input(Symbol.DIGIT_9)
-    ".", "," -> CalculatorCommand.Input(Symbol.DOT)
-    "+" -> CalculatorCommand.Input(Symbol.ADD)
-    "-" -> CalculatorCommand.Input(Symbol.SUBTRACT)
-    "×" -> CalculatorCommand.Input(Symbol.MULTIPLY)
-    "÷" -> CalculatorCommand.Input(Symbol.DIVIDE)
-    "%" -> CalculatorCommand.Input(Symbol.PERCENT)
-    "( )" -> CalculatorCommand.Input(Symbol.PARENTHESIS)
-    "AC" -> CalculatorCommand.Clear
-    "=" -> CalculatorCommand.Evaluate
-    else -> throw IllegalArgumentException("Unknown label: $label")
-}

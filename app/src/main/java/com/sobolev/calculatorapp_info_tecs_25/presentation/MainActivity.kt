@@ -1,10 +1,10 @@
 package com.sobolev.calculatorapp_info_tecs_25.presentation
 
+import CalculatorScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.sobolev.calculatorapp_info_tecs_25.presentation.navigation.NavGraph
 import com.sobolev.calculatorapp_info_tecs_25.presentation.ui.theme.CalculatorApp_info_tecs_25Theme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,7 +16,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CalculatorApp_info_tecs_25Theme {
-                NavGraph()
+                CalculatorScreen()
             }
         }
     }
